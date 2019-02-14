@@ -1,5 +1,5 @@
 
-class Node:
+class Node(object):
     def __init__(self, data: object, next_node=None):
         self.data = data
         self._next = None
@@ -8,27 +8,28 @@ class Node:
         return repr(self.data)
 
 
-class SinglyLinkedList:
+class SinglyLinkedList(object):
     """
     单链表
     """
-    def __init__(self, string: str):
+    def __init__(self):
+        self._head = None
+        self._tail = None
+        self.__len = 0
+
+    def append(self, data: object):
         """
-        将字符串转成单链表存储
-        :param string:
+        在末尾添加一个节点
+        :param data:
+        :return:
         """
-        if len(string) > 0:
-            prev = Node(string[0])
-            self._head = prev
-            self._length = 1
-            for i in range(1, len(string)):
-                cur = Node(string[i])
-                prev._next = cur
-                prev = cur
-                self._length += 1
+        node = Node(data)
+        if not self._head:
+            self._tail = self._head = node
         else:
-            self._head = None
-            self._length = 0
+            self._tail._next = node
+            self._tail = node
+        self.__len += 1
 
     def __repr__(self):
         if self._head is None:
@@ -37,18 +38,18 @@ class SinglyLinkedList:
             if self.hasLoop():
                 return 'Loop Exist'
             else:
+                nums = []
                 cur = self._head
-                string = repr(cur)
-                while cur._next is not None:
+                while cur:
+                    nums.append(repr(cur))
                     cur = cur._next
-                    string += ' -> ' + repr(cur)
-                return string
+                return '->'.join(nums)
 
     def __len__(self):
-        return self._length
+        return self.__len
 
     def __getitem__(self, index: int) -> object:
-        if index >= self._length:
+        if index >= self.__len:
             raise IndexError
         else:
             cur = self._head
@@ -61,7 +62,7 @@ class SinglyLinkedList:
         检测是否有环
         :return:
         """
-        if self._length == 0:
+        if self.__len == 0:
             return False
         slow = self._head
         fast = self._head
@@ -74,9 +75,22 @@ class SinglyLinkedList:
             return False
 
 
+def singly_linked_list(string: str) -> SinglyLinkedList:
+    """
+    将string转成单链表存储
+    :param string:
+    :return:
+    """
+    sl_list = SinglyLinkedList()
+    if len(string) > 0:
+        for i in range(0, len(string)):
+            sl_list.append(string[i])
+    return sl_list
+
+
 if __name__ == '__main__':
     """
     test
     """
-    sll = SinglyLinkedList('abc')
+    sll = singly_linked_list('abc')
     print(repr(sll))

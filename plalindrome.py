@@ -54,7 +54,7 @@ if __name__ == '__main__':
     """
     while True:
         string = input('请输入字符串：\n')
-        sll = SinglyLinkedList(string)
+        sll = singly_linked_list(string)
         print(sll)
         if is_palindrome(sll):
             print('是回文')
