@@ -4,8 +4,8 @@ class Node:
         self.data = data
         self._next = None
 
-    def __str__(self):
-        return self.data.__str__()
+    def __repr__(self):
+        return repr(self.data)
 
 
 class SinglyLinkedList:
@@ -30,7 +30,7 @@ class SinglyLinkedList:
             self._head = None
             self._length = 0
 
-    def __str__(self):
+    def __repr__(self):
         if self._head is None:
             return 'empty'
         else:
@@ -38,10 +38,10 @@ class SinglyLinkedList:
                 return 'Loop Exist'
             else:
                 cur = self._head
-                string = cur.__str__()
+                string = repr(cur)
                 while cur._next is not None:
                     cur = cur._next
-                    string += ' -> ' + cur.__str__()
+                    string += ' -> ' + repr(cur)
                 return string
 
     def __len__(self):
@@ -79,4 +79,4 @@ if __name__ == '__main__':
     test
     """
     sll = SinglyLinkedList('abc')
-    print(sll)
+    print(repr(sll))
