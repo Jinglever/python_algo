@@ -2,6 +2,7 @@
 基于链表实现的栈
 """
 
+from typing import Optional
 
 class Node(object):
     def __init__(self, data: object, next_node=None):
@@ -25,7 +26,7 @@ class LinkedStack(object):
         self._top = node
         self.__len += 1
 
-    def pop(self) -> object or None:
+    def pop(self) -> Optional[object]:
         if self._top:
             node = self._top
             self._top = node._next
