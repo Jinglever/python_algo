@@ -22,6 +22,9 @@ class MyArray:
         for item in self._list:
             yield item
 
+    def __repr__(self):
+        return repr(self._list)
+
 
 if __name__ == '__main__':
     """
@@ -33,5 +36,6 @@ if __name__ == '__main__':
     print(array[2])
     array[9] = 3
     print(array[-1])
-    # array[10] = 3
+    array[2] = 'a'
+    print(array[2])
 
