@@ -44,8 +44,16 @@ class ArrayQueue(object):
             self._head += 1
             return self._array[self._head - 1]
 
+    def __iter__(self):
+        for i in range(self._head, self._tail):
+            yield self._array[i]
+
     def __repr__(self):
-        return repr(self._array)
+        nums = ['array(']
+        for i in range(0, self._capacity):
+            nums.append('  {} => {},'.format(i, repr(self._array[i])))
+        nums.append(')')
+        return '\n'.join(nums)
 
 
 if __name__ == '__main__':
