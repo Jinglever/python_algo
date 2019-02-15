@@ -1,4 +1,7 @@
-class MyArray:
+from typing import Optional
+from typing import List
+
+class MyArray(object):
     """
     Simple Array
     """
@@ -6,10 +9,10 @@ class MyArray:
         self._capacity = capacity
         self._list = [None] * capacity
 
-    def __getitem__(self, index: int) -> object:
+    def __getitem__(self, index: int) -> Optional[object]:
         return self._list[index]
 
-    def __setitem__(self, index: int, value: object):
+    def __setitem__(self, index: int, value: Optional[object]):
         if 0 <= index < self._capacity:
             self._list[index] = value
         else:
