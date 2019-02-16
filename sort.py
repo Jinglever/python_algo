@@ -228,11 +228,41 @@ def _quick_sort(array: MyArray, start: int, end: int, asc=True):
 def quick_sort(array: MyArray, asc=True):
     """
     快速排序
+    非稳定排序  原地排序  空间复杂度O(1)  时间复杂度O(nlogn)
     :param array:
     :param asc:
     :return:
     """
     _quick_sort(array, 0, len(array)-1, asc)
+
+
+def _find_the_k_number(array:MyArray, k: int, start: int, end: int):
+    """
+    在指定的分区里寻找整个数组的第k大元素
+    :param array:
+    :param k:
+    :param start:
+    :param end:
+    :return:
+    """
+    pivot = _partition(array, start, end, True)
+    if pivot == k - 1:
+        return array[pivot]
+    if pivot >= k:  # 第k大的元素在左侧的分区里
+        return _find_the_k_number(array, k, start, pivot-1)
+    else:
+        return _find_the_k_number(array, k, pivot+1, end)
+
+
+def find_the_k_number(array: MyArray, k: int):
+    """
+    在O(n)的时间复杂度内求无序数组中的第k大元素
+    利用了快排的分治和分区思想
+    :param array:
+    :param k:
+    :return:
+    """
+    return _find_the_k_number(array, k, 0, len(array)-1)
 
 
 if __name__ == '__main__':
@@ -241,7 +271,7 @@ if __name__ == '__main__':
     data = MyArray(9)
     for k in range(len(nums)):
         data[k] = nums[k]
-    # print(data)
+    print(data)
 
     # bubble_sort(data, True)
     # print(data)
@@ -263,8 +293,12 @@ if __name__ == '__main__':
     # merge_sort(data, False)
     # print(data)
 
+    # quick_sort(data, True)
+    # print(data)
+    # quick_sort(data, False)
+    # print(data)
+    k = 1
+    print('第 {} 大的元素是 {}'.format(k, find_the_k_number(data, k)))
     quick_sort(data, True)
-    print(data)
-    quick_sort(data, False)
     print(data)
 
