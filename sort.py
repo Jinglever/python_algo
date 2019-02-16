@@ -284,17 +284,59 @@ def bucket_sort(array: MyArray, asc=True):
     }
     # 塞入桶中
     for i in range(len(array)):
-        for upper, bucket in buckets:
+        for upper, bucket in buckets.items():
             if array[i] <= upper:
                 bucket.append(array[i])
                 break
     # 每个桶快排
-    j = 0
-    for bucket in buckets.values():
-        quick_sort(bucket, asc)
-        for i in range(len(bucket)):
-            array[j] = bucket[i]
-            j += 1
+    if asc:
+        j = 0
+        for bucket in buckets.values():
+            quick_sort(bucket, asc)
+            for i in range(len(bucket)):
+                array[j] = bucket[i]
+                j += 1
+    else:
+        j = len(array) - 1
+        for bucket in buckets.values():
+            quick_sort(bucket, asc)
+            for i in range(len(bucket)-1, -1, -1):
+                array[j] = bucket[i]
+                j -= 1
+
+
+
+def counting_sort(array: MyArray, asc=True):
+    """
+    计数排序
+    把数据划分成k个桶，每个桶的数据值都是相同的，省掉桶内排序的时间
+    :param array: 要求数据是范围不大的数值 数值范围在0~9
+    :param asc:
+    :return:
+    """
+    # 遍历数组，得到每个桶的数值数量
+    index_array = MyArray(10)
+    for i in range(10):
+        index_array[i] = 0
+    for i in range(len(array)):
+        index_array[array[i]] += 1
+    # 对这个数组顺序求和
+    if asc:
+        for i in range(1, 10):
+            index_array[i] += index_array[i-1]
+    else:
+        for i in range(8, -1, -1):
+            index_array[i] += index_array[i+1]
+
+    sorted_array = MyArray(len(array))
+    # 扫描array，通过index_array定位到插入的位置
+    for i in range(len(array)):
+        sorted_array[index_array[array[i]] - 1] = array[i]
+        index_array[array[i]] -= 1
+    for i in range(len(sorted_array)):
+        array[i] = sorted_array[i]
+
+
 
 
 if __name__ == '__main__':
@@ -341,9 +383,15 @@ if __name__ == '__main__':
     # quick_sort(data, True)
     # print(data)
 
-    # 测试桶排序
-    bubble_sort(data, True)
+    # 桶排序
+    # bucket_sort(data, True)
+    # print(data)
+    # bucket_sort(data, False)
+    # print(data)
+
+    # 计数排序
+    counting_sort(data, True)
     print(data)
-    bubble_sort(data, False)
+    counting_sort(data, False)
     print(data)
 
