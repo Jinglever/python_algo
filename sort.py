@@ -265,6 +265,38 @@ def find_the_k_number(array: MyArray, k: int):
     return _find_the_k_number(array, k, 0, len(array)-1)
 
 
+def bucket_sort(array: MyArray, asc=True):
+    """
+    桶排序
+    桶的个数约接近n，时间复杂度就越接近O(n)
+    桶排序比较适合用在外部排序中。所谓的外部排序就是数据存储在外部磁盘中，
+    数据量比较大，内存有限，无法将数据全部加载到内存中。
+    :param array: 要求 array 的元素都是 0~9的数字
+    :param asc:
+    :return:
+    """
+    # 分成 0~2 3~5 6~8 9~10 4个桶
+    buckets = {
+        2: [],  # 0~2
+        5: [],  # 3~5
+        8: [],  # 6~8
+        10: [], # 9~10
+    }
+    # 塞入桶中
+    for i in range(len(array)):
+        for upper, bucket in buckets:
+            if array[i] <= upper:
+                bucket.append(array[i])
+                break
+    # 每个桶快排
+    j = 0
+    for bucket in buckets.values():
+        quick_sort(bucket, asc)
+        for i in range(len(bucket)):
+            array[j] = bucket[i]
+            j += 1
+
+
 if __name__ == '__main__':
     """test"""
     nums = [2, 5, 7, 1, 3, 8, 3, 4, 6]
@@ -273,32 +305,45 @@ if __name__ == '__main__':
         data[k] = nums[k]
     print(data)
 
+    # 冒泡排序
     # bubble_sort(data, True)
     # print(data)
     # bubble_sort(data, False)
     # print(data)
 
+    # 插入排序
     # insertion_sort(data, True)
     # print(data)
     # insertion_sort(data, False)
     # print(data)
 
+    # 选择排序
     # selection_sort(data, True)
     # print(data)
     # selection_sort(data, False)
     # print(data)
 
+    # 归并排序
     # merge_sort(data, True)
     # print(data)
     # merge_sort(data, False)
     # print(data)
 
+    # 快速排序
     # quick_sort(data, True)
     # print(data)
     # quick_sort(data, False)
     # print(data)
-    k = 1
-    print('第 {} 大的元素是 {}'.format(k, find_the_k_number(data, k)))
-    quick_sort(data, True)
+
+    # 无序数组中第k大元素
+    # k = 1
+    # print('第 {} 大的元素是 {}'.format(k, find_the_k_number(data, k)))
+    # quick_sort(data, True)
+    # print(data)
+
+    # 测试桶排序
+    bubble_sort(data, True)
+    print(data)
+    bubble_sort(data, False)
     print(data)
 
