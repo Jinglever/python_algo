@@ -39,12 +39,10 @@ def l_find(a: MyArray, n: int, target: int):
         mid = low + (high - low >> 1)
         print('mid={}'.format(mid))  # debug
         if a[mid] == target:
-            # 找到后要往左遍历找到第一个
-            for i in range(mid-1, low-1, -1):
-                if a[i] != target:
-                    return i + 1
+            if mid == 0 or a[mid-1] != target:
+                return mid
             else:
-                return low
+                high = mid - 1
         elif a[mid] < target:  # 在右半区
             low = mid + 1  # 注意要+1
         else:
@@ -65,12 +63,10 @@ def r_find(a: MyArray, n: int, target: int):
         mid = low + (high - low >> 1)
         print('mid={}'.format(mid))  # debug
         if a[mid] == target:
-            # 找到后要往右遍历找到最后一个
-            for i in range(mid+1, high+1):
-                if a[i] != target:
-                    return i - 1
+            if mid == n -1 or a[mid+1] != target:
+                return mid
             else:
-                return high
+                low = mid + 1
         elif a[mid] < target:  # 在右半区
             low = mid + 1  # 注意要+1
         else:
@@ -85,5 +81,5 @@ if __name__ == '__main__':
     print(data)
 
     # print(bsearch(data, len(data), 3))
-    print(l_find(data, len(data), 8))
-    print(r_find(data, len(data), 8))
+    print(l_find(data, len(data), 2))
+    print(r_find(data, len(data), 2))
