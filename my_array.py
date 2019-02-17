@@ -29,6 +29,18 @@ class MyArray(object):
         return repr(self._list)
 
 
+def my_array(a: List) -> MyArray:
+    """
+    将list转成array
+    :param a:
+    :return:
+    """
+    array = MyArray(len(a))
+    for i in range(len(a)):
+        array[i] = a[i]
+    return array
+
+
 if __name__ == '__main__':
     """
     test

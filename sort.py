@@ -3,7 +3,7 @@
 """
 
 import random
-from my_array import MyArray
+from my_array import MyArray, my_array
 
 
 def bubble_sort(array: MyArray, asc=True):
@@ -337,14 +337,9 @@ def counting_sort(array: MyArray, asc=True):
         array[i] = sorted_array[i]
 
 
-
-
 if __name__ == '__main__':
     """test"""
-    nums = [2, 5, 7, 1, 3, 8, 3, 4, 6]
-    data = MyArray(9)
-    for k in range(len(nums)):
-        data[k] = nums[k]
+    data = my_array([2, 5, 7, 1, 3, 8, 3, 4, 6])
     print(data)
 
     # 冒泡排序
