@@ -78,13 +78,19 @@ class SkipList(object):
     def _random_level(self) -> int:
         """
         随机level
+        试过不同的算法，还是现在这种得到的索引比较合理
         :return:
         """
-        level = 1
-        for i in range(1, self._MAX_LEVEL):
+        # level = 1
+        # while random.random() < 0.5 and level < type(self)._MAX_LEVEL:
+        #     level += 1
+        # return  level
+        # return random.randint(1, 16)
+        level = -self._MAX_LEVEL
+        for i in range(1, self._MAX_LEVEL * 2):
             if random.random() < 0.5:
                 level += 1
-        return level
+        return abs(level)
 
     def __repr__(self):
         lines = []
