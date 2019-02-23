@@ -74,6 +74,18 @@ class SinglyLinkedList(object):
         else:
             return False
 
+    def reserve(self):
+        """
+        翻转单向链表
+        :return:
+        """
+        p, self._tail, prev = self._head, self._head, None
+        while p._next:
+            q, p._next = p._next, prev
+            prev, p = p, q
+        p._next, self._head = prev, p
+
+
 
 def singly_linked_list(string: str) -> SinglyLinkedList:
     """
@@ -92,5 +104,7 @@ if __name__ == '__main__':
     """
     test
     """
-    sll = singly_linked_list('abc')
+    sll = singly_linked_list('abcdef')
+    print(repr(sll))
+    sll.reserve();
     print(repr(sll))
