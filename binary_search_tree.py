@@ -39,26 +39,23 @@ class BinarySearchTree(object):
         :param num:
         :return:
         """
-        new_node = Node(num)
         if not self.root:
-            self.root = new_node
+            self.root = Node(num)
         else:
             p = self.root
             while p:
                 if num == p.data: # 不接受重复数字
                     return
-                elif num < p.data:
-                    if not p.left:
-                        p.left = new_node
-                        break
-                    else:
-                        p = p.left
+                pp = p
+                if num < p.data:
+                    p = p.left
                 else:
-                    if not p.right:
-                        p.right = new_node
-                        break
-                    else:
-                        p = p.right
+                    p = p.right
+            if num < pp.data:
+                pp.left = Node(num)
+            else:
+                pp.right = Node(num)
+
         self.count += 1
 
     def delete(self, num: int):
