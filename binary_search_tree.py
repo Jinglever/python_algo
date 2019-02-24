@@ -40,19 +40,21 @@ class BinarySearchTree(object):
         :return:
         """
         new_node = Node(num)
-        if self.root == None:
+        if not self.root:
             self.root = new_node
         else:
             p = self.root
             while p:
-                if num <= p.data:
-                    if p.left == None:
+                if num == p.data: # 不接受重复数字
+                    return
+                elif num < p.data:
+                    if not p.left:
                         p.left = new_node
                         break
                     else:
                         p = p.left
                 else:
-                    if p.right == None:
+                    if not p.right:
                         p.right = new_node
                         break
                     else:
